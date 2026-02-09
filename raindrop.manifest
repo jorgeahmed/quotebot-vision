@@ -1,0 +1,14 @@
+application "quotebot-backend" {
+
+  service "api" {
+    visibility = "public"
+  }
+
+  env "VULTR_INFERENCE_URL" {
+    default = "http://216.238.87.125/predict"
+  }
+
+  bucket "job-photos" {}
+
+  smartsql "main" {}
+}

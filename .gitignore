@@ -1,0 +1,53 @@
+# Archivos sensibles
+android/key.properties
+**/*.keystore
+**/*.jks
+*.keystore
+*.jks
+
+# Keystore local (NO COMMITEAR)
+quotebot-release-key.keystore
+/home/ventas/quotebot-release-key.keystore
+
+# Secrets
+.env
+.env.local
+.env.production
+
+# Firebase
+google-services.json
+GoogleService-Info.plist
+firebase-debug.log
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+**/build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+/tmp/
+*.tmp

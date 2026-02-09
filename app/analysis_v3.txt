@@ -1,0 +1,81 @@
+Analyzing app...                                                
+
+   info • Convert 'id', 'name', 'description', 'location', and 'createdAt' to super parameters • lib/data/models/project_model.dart:5:9 • use_super_parameters
+   info • Don't invoke 'print' in production code • lib/data/repositories/cloud_job_repository.dart:70:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/cloud_job_repository.dart:99:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/cloud_job_repository.dart:118:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/cloud_job_repository.dart:136:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/cloud_job_repository.dart:140:7 • avoid_print
+   info • Use 'const' with the constructor to improve performance • lib/data/repositories/mock_job_repository.dart:8:7 • prefer_const_constructors
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/data/repositories/mock_job_repository.dart:8:108 • prefer_const_literals_to_create_immutables
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/data/repositories/mock_job_repository.dart:10:22 • prefer_const_literals_to_create_immutables
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/data/repositories/mock_job_repository.dart:11:11 • prefer_const_literals_to_create_immutables
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/data/repositories/mock_job_repository.dart:12:11 • prefer_const_literals_to_create_immutables
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/data/repositories/mock_job_repository.dart:56:25 • prefer_const_literals_to_create_immutables
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/data/repositories/mock_job_repository.dart:58:24 • prefer_const_literals_to_create_immutables
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/data/repositories/mock_job_repository.dart:59:14 • prefer_const_literals_to_create_immutables
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/data/repositories/mock_job_repository.dart:60:14 • prefer_const_literals_to_create_immutables
+   info • Don't invoke 'print' in production code • lib/data/repositories/profile_repository_impl.dart:27:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/profile_repository_impl.dart:46:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/profile_repository_impl.dart:65:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/profile_repository_impl.dart:88:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/profile_repository_impl.dart:120:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/project_repository_impl.dart:27:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/quotation_repository_impl.dart:28:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/quotation_repository_impl.dart:44:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/repositories/quotation_repository_impl.dart:63:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/services/api_client.dart:30:28 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:27:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:29:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:31:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:33:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:36:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:37:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/presentation/blocs/chat/chat_bloc.dart:50:7 • avoid_print
+   info • The declaration '_onFilterProjectsByStage' isn't referenced • lib/presentation/blocs/project_bloc.dart:102:8 • unused_element
+   info • Don't invoke 'print' in production code • lib/presentation/pages/camera_page.dart:95:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/presentation/pages/camera_page.dart:129:7 • avoid_print
+   info • Use 'const' with the constructor to improve performance • lib/presentation/pages/chat_page.dart:99:19 • prefer_const_constructors
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/presentation/pages/chat_page.dart:101:20 • prefer_const_literals_to_create_immutables
+   info • Use 'const' with the constructor to improve performance • lib/presentation/pages/chat_page.dart:102:11 • prefer_const_constructors
+   info • The import of '../blocs/project_event.dart' is unnecessary because all of the used elements are also provided by the import of '../blocs/project_bloc.dart' • lib/presentation/pages/dashboard_page.dart:4:8 • unnecessary_import
+   info • The import of '../blocs/project_state.dart' is unnecessary because all of the used elements are also provided by the import of '../blocs/project_bloc.dart' • lib/presentation/pages/dashboard_page.dart:5:8 • unnecessary_import
+warning • Unused import: '../../data/repositories/mock_project_repository.dart' • lib/presentation/pages/dashboard_page.dart:10:8 • unused_import
+warning • Unused import: '../widgets/role_toggle_widget.dart' • lib/presentation/pages/dashboard_page.dart:12:8 • unused_import
+   info • Use 'const' with the constructor to improve performance • lib/presentation/pages/dashboard_page.dart:93:33 • prefer_const_constructors
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/presentation/pages/dashboard_page.dart:95:45 • prefer_const_literals_to_create_immutables
+   info • Use 'const' with the constructor to improve performance • lib/presentation/pages/dashboard_page.dart:163:13 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/pages/dashboard_page.dart:164:22 • prefer_const_constructors
+   info • The import of '../blocs/project_event.dart' is unnecessary because all of the used elements are also provided by the import of '../blocs/project_bloc.dart' • lib/presentation/pages/edit_project_page.dart:6:8 • unnecessary_import
+   info • Statements in an if should be enclosed in a block • lib/presentation/pages/profile_page.dart:98:15 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/presentation/pages/profile_page.dart:100:15 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/presentation/pages/profile_page.dart:102:15 • curly_braces_in_flow_control_structures
+   info • The variable name 'Role' isn't a lowerCamelCase identifier • lib/presentation/pages/profile_page.dart:239:45 • non_constant_identifier_names
+warning • Unused import: '../../domain/entities/workflow_state.dart' • lib/presentation/pages/project_details_page.dart:6:8 • unused_import
+warning • Unused import: '../../domain/repositories/activity_repository.dart' • lib/presentation/pages/project_details_page.dart:23:8 • unused_import
+warning • The value of the field '_jobRepo' isn't used • lib/presentation/pages/project_details_page.dart:39:23 • unused_field
+   info • Don't invoke 'print' in production code • lib/presentation/pages/project_details_page.dart:65:7 • avoid_print
+warning • Unused import: '../../domain/entities/workflow_state.dart' • lib/presentation/widgets/activity_card.dart:4:8 • unused_import
+   info • The type of the right operand ('WorkflowStage') isn't a subtype or a supertype of the left operand ('WorkflowState?') • lib/presentation/widgets/dashboard_stats_widget.dart:17:29 • unrelated_type_equality_checks
+   info • The type of the right operand ('WorkflowStage') isn't a subtype or a supertype of the left operand ('WorkflowState?') • lib/presentation/widgets/dashboard_stats_widget.dart:20:39 • unrelated_type_equality_checks
+   info • Convert 'onRetry' to a super parameter • lib/presentation/widgets/error_view.dart:79:9 • use_super_parameters
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:14:14 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:16:16 • prefer_const_constructors
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/presentation/widgets/loading_skeleton.dart:18:21 • prefer_const_literals_to_create_immutables
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:19:13 • prefer_const_constructors
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/presentation/widgets/loading_skeleton.dart:21:25 • prefer_const_literals_to_create_immutables
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:22:17 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:23:26 • prefer_const_constructors
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/presentation/widgets/loading_skeleton.dart:25:31 • prefer_const_literals_to_create_immutables
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:26:23 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:28:23 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:32:17 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:36:13 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:38:13 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/presentation/widgets/loading_skeleton.dart:40:13 • prefer_const_constructors
+   info • The import of '../blocs/project_event.dart' is unnecessary because all of the used elements are also provided by the import of '../blocs/project_bloc.dart' • lib/presentation/widgets/project_filter_bar.dart:5:8 • unnecessary_import
+   info • The import of '../blocs/project_state.dart' is unnecessary because all of the used elements are also provided by the import of '../blocs/project_bloc.dart' • lib/presentation/widgets/project_filter_bar.dart:6:8 • unnecessary_import
+   info • Use 'const' with the constructor to improve performance • test/domain/entities/job_test.dart:8:19 • prefer_const_constructors
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • test/domain/entities/job_test.dart:12:25 • prefer_const_literals_to_create_immutables
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes • test/domain/entities/job_test.dart:13:33 • prefer_const_literals_to_create_immutables
+

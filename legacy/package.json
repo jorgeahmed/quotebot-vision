@@ -1,0 +1,9 @@
+{
+  "name": "quotebot-backend",
+  "version": "1.0.1",
+  "type": "module",
+  "main": "src/api/index.js",
+  "dependencies": {
+    "@liquidmetal-ai/raindrop-framework": "latest"
+  }
+}

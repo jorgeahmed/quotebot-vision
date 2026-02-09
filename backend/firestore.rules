@@ -1,0 +1,81 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function: Check if user is authenticated
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    // Helper function: Check if user owns the resource
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    // PROJECTS Collection
+    // Users can create projects, read their own, update their own
+    match /projects/{projectId} {
+      allow read: if true; // Public read for MVP, restrict later
+      allow create: if true; // Allow creation for MVP
+      allow update, delete: if true; // Allow updates for MVP
+      
+      // TODO PRODUCTION: Implement user ownership
+      // allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      // allow create: if isSignedIn();
+      // allow update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+    
+    // JOBS Collection
+    // Analysis jobs - should be readable by project owners
+    match /jobs/{jobId} {
+      allow read: if true; // Public read for MVP
+      allow create: if true; // Backend creates jobs
+      allow update: if true; // Backend updates job status
+      allow delete: if false; // Don't allow job deletion
+      
+      // TODO PRODUCTION: Implement user ownership via project
+      // allow read: if isSignedIn();
+      // allow create: if true; // Backend service account creates
+      // allow update: if true; // Backend service account updates
+    }
+    
+    // QUOTATIONS Collection (NEW for ML pricing)
+    // Quotations generated from jobs
+    match /quotations/{quotationId} {
+      allow read: if true; // Public read for MVP
+      allow create: if true; // Backend creates quotations
+      allow update: if true; // Allow status updates (draft -> approved)
+      allow delete: if false; // Don't allow deletion
+      
+      // TODO PRODUCTION: Implement user ownership
+      // allow read: if isSignedIn();
+      // allow create: if true; // Backend service account creates
+      // allow update: if isSignedIn(); // Users can approve/reject
+    }
+    
+    // MATERIAL_PRICES Collection (NEW for ML pricing)
+    // Catalog of material prices with history
+    match /material_prices/{materialId} {
+      allow read: if true; // Everyone can read prices
+      allow create, update: if true; // Backend updates prices
+      allow delete: if false; // Never delete price history
+      
+      // TODO PRODUCTION: Only backend service account should write
+      // allow read: if true; // Public read is OK
+      // allow write: if false; // Only service account via Admin SDK
+    }
+    
+    // PRICE_ADJUSTMENTS Collection (NEW for ML pricing)
+    // Audit log of price adjustments
+    match /price_adjustments/{adjustmentId} {
+      allow read: if true; // Public read for transparency
+      allow create: if true; // Backend logs adjustments
+      allow update, delete: if false; // Immutable audit log
+      
+      // TODO PRODUCTION: Restrict writes to backend only
+      // allow read: if isSignedIn();
+      // allow write: if false; // Only service account via Admin SDK
+    }
+  }
+}

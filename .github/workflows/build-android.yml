@@ -1,0 +1,77 @@
+name: Build Android Release APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:  # Permite ejecutar manualmente desde GitHub
+
+jobs:
+  build:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.0'
+        channel: 'stable'
+        cache: true
+    
+    - name: Get Flutter dependencies
+      run: |
+        cd app
+        flutter pub get
+    
+    - name: Decode keystore
+      run: |
+        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > /home/runner/quotebot-release-key.keystore
+    
+    - name: Create key.properties
+      run: |
+        cd app/android
+        cat > key.properties << EOF
+        storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+        keyPassword=${{ secrets.KEY_PASSWORD }}
+        keyAlias=${{ secrets.KEY_ALIAS }}
+        storeFile=/home/runner/quotebot-release-key.keystore
+        EOF
+    
+    - name: Build APK
+      run: |
+        cd app
+        flutter build apk --release
+    
+    - name: Build App Bundle (AAB)
+      run: |
+        cd app
+        flutter build appbundle --release
+    
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: quotebot-release-apk
+        path: app/build/app/outputs/flutter-apk/app-release.apk
+        retention-days: 30
+    
+    - name: Upload App Bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: quotebot-release-aab
+        path: app/build/app/outputs/bundle/release/app-release.aab
+        retention-days: 30
+    
+    - name: Get APK info
+      run: |
+        cd app/build/app/outputs/flutter-apk
+        ls -lh app-release.apk
+        echo "APK Size: $(du -h app-release.apk | cut -f1)"

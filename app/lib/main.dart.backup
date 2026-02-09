@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'presentation/pages/dashboard_page.dart';
+// import 'package:firebase_core/firebase_core.dart'; // Uncomment after configuration
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(); // Uncomment after firebase_options.dart is generated
+  runApp(const QuoteBotApp());
+}
+
+class QuoteBotApp extends StatelessWidget {
+  const QuoteBotApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'QuoteBot Vision',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF6200EE),
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true,
+        textTheme: GoogleFonts.interTextTheme(),
+      ),
+      home: const DashboardPage(),
+    );
+  }
+}
