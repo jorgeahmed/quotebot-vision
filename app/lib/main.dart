@@ -107,16 +107,35 @@ class QuoteBotApp extends StatelessWidget {
                   colorScheme: ColorScheme.fromSeed(
                     seedColor: const Color(0xFF2979FF),
                     brightness: Brightness.dark,
-                    primary: const Color(0xFF2979FF),
-                    secondary: const Color(0xFF00E676),
-                    background: const Color(0xFF0F172A), // Midnight Blue
-                    surface: const Color(0xFF1E293B),
+                    // High contrast colors
+                    primary: const Color(0xFF64B5F6), // Lighter blue
+                    secondary: const Color(0xFF69F0AE), // Bright lime
+                    tertiary: const Color(0xFFFFB74D), // Orange
+                    background: const Color(0xFF0A0E27), // Deep navy
+                    surface: const Color(0xFF1A1F3A), // Card surface
+                    surfaceVariant: const Color(0xFF2A2F4A), // Elevated
+                    onPrimary: Colors.black,
+                    onSecondary: Colors.black,
+                    onBackground: const Color(0xFFE8EAED), // Light text
+                    onSurface: const Color(0xFFE8EAED), // Light text
+                    onSurfaceVariant: const Color(0xFFB8BABD), // Gray text
+                    error: const Color(0xFFFF5252),
                   ),
-                  scaffoldBackgroundColor: const Color(0xFF0F172A),
-                  textTheme:
-                      GoogleFonts.interTextTheme(ThemeData.dark().textTheme),
+                  scaffoldBackgroundColor: const Color(0xFF0A0E27),
+                  cardColor: const Color(0xFF1A1F3A),
+                  textTheme: GoogleFonts.interTextTheme(
+                    ThemeData.dark().textTheme.copyWith(
+                          bodyLarge: const TextStyle(color: Color(0xFFE8EAED)),
+                          bodyMedium: const TextStyle(color: Color(0xFFE8EAED)),
+                          titleLarge: const TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                          titleMedium:
+                              const TextStyle(color: Color(0xFFE8EAED)),
+                        ),
+                  ),
                   appBarTheme: const AppBarTheme(
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: Color(0xFF1A1F3A),
+                    foregroundColor: Color(0xFFE8EAED),
                     elevation: 0,
                   ),
                 ),
