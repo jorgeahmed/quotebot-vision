@@ -20,11 +20,14 @@ service cloud.firestore {
       allow create: if true; // Allow creation for MVP
       allow update, delete: if true; // Allow updates for MVP
       
+      // PROJECT MESSAGES Collection (Project Chat)
+      match /messages/{messageId} {
+        allow read: if true; // Public read for MVP
+        allow create: if true; // Allow creation for MVP
+        allow update, delete: if true; // Allow updates for MVP
+      }
+      
       // TODO PRODUCTION: Implement user ownership
-      // allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
-      // allow create: if isSignedIn();
-      // allow update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
-    }
     
     // JOBS Collection
     // Analysis jobs - should be readable by project owners

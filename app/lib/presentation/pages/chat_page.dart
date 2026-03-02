@@ -22,7 +22,7 @@ class ChatPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(project.name),
-          backgroundColor: const Color(0xFF6200EE),
+          backgroundColor: const Color(0xFF0A0E27),
           foregroundColor: Colors.white,
         ),
         body: Column(
@@ -115,7 +115,7 @@ class _MessageInputAreaState extends State<_MessageInputArea> {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFF111633),
         boxShadow: [
           BoxShadow(
             color: Colors.black12,
@@ -128,7 +128,8 @@ class _MessageInputAreaState extends State<_MessageInputArea> {
         child: Row(
           children: [
             IconButton(
-              icon: const Icon(Icons.add_photo_alternate),
+              icon: const Icon(Icons.add_photo_alternate,
+                  color: Color(0xFF8B8FA3)),
               onPressed: () {
                 // Future: Implement image upload
               },
@@ -136,8 +137,10 @@ class _MessageInputAreaState extends State<_MessageInputArea> {
             Expanded(
               child: TextField(
                 controller: _controller,
+                style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                   hintText: 'Escribe un mensaje...',
+                  hintStyle: TextStyle(color: Color(0xFF8B8FA3)),
                   border: InputBorder.none,
                 ),
                 textCapitalization: TextCapitalization.sentences,
@@ -145,7 +148,7 @@ class _MessageInputAreaState extends State<_MessageInputArea> {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.send, color: Color(0xFF6200EE)),
+              icon: const Icon(Icons.send, color: Color(0xFF2979FF)),
               onPressed: _sendMessage,
             ),
           ],

@@ -3,15 +3,18 @@ import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'presentation/pages/dashboard_page.dart';
+import 'presentation/pages/main_navigation_page.dart'; // Import new navigation page
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'domain/repositories/project_repository.dart';
-import 'data/repositories/mock_profile_repository.dart';
 import 'data/repositories/profile_repository_impl.dart';
 import 'core/config/app_config.dart';
 import 'domain/repositories/quotation_repository.dart';
 import 'domain/repositories/job_repository.dart';
+import 'domain/repositories/auth_repository.dart';
+import 'data/repositories/auth_repository_impl.dart';
+import 'presentation/blocs/chat/chat_bloc.dart';
+import 'presentation/blocs/auth/auth_bloc.dart';
 import 'presentation/blocs/profile/profile_bloc.dart';
 import 'presentation/blocs/profile/profile_event.dart';
 import 'presentation/blocs/theme/theme_cubit.dart';
@@ -21,29 +24,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   debugPrint('🚀 [MAIN] WidgetsFlutterBinding initialized');
 
-  // Initialize Firebase (only on native platforms, not Web)
-  if (!kIsWeb) {
-    try {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-      debugPrint('✅ [MAIN] Firebase initialized successfully');
-    } catch (e) {
-      debugPrint('⚠️ [MAIN] Firebase initialization failed: $e');
-    }
+  // Initialize Firebase on ALL platforms (including Web)
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    debugPrint('✅ [MAIN] Firebase initialized successfully');
+  } catch (e) {
+    debugPrint('⚠️ [MAIN] Firebase initialization failed: $e');
   }
 
-  // Set Environment based on platform
-  // Web: MOCK (avoids Firebase issues, reliable for demos)
-  // Android/iOS: PROD (real backend with Gemini Vision)
-  if (kIsWeb) {
-    AppConfig().setEnvironment(Environment.mock);
-    debugPrint('🌐 [MAIN] Running on Web - Using MOCK mode');
-  } else {
-    AppConfig().setEnvironment(Environment.prod);
-    debugPrint(
-        '📱 [MAIN] Running on Native - Using PROD mode with real backend');
-  }
+  // All platforms use PROD mode (real backend + Firestore)
+  AppConfig().setEnvironment(Environment.prod);
+  debugPrint('🚀 [MAIN] Running in PROD mode with real backend');
 
   runApp(const QuoteBotApp());
 }
@@ -65,6 +58,9 @@ class QuoteBotApp extends StatelessWidget {
         RepositoryProvider<JobRepository>(
           create: (context) => config.jobRepository,
         ),
+        RepositoryProvider<AuthRepository>(
+          create: (context) => AuthRepositoryImpl(),
+        ),
       ],
       child: BlocProvider(
         create: (context) => ThemeCubit(),
@@ -73,11 +69,17 @@ class QuoteBotApp extends StatelessWidget {
             return MultiBlocProvider(
               providers: [
                 BlocProvider(
+                  create: (context) => AuthBloc(
+                    authRepository: context.read<AuthRepository>(),
+                  ),
+                ),
+                BlocProvider(
                   create: (context) => ProfileBloc(
-                    profileRepository: kIsWeb
-                        ? MockProfileRepository()
-                        : ProfileRepositoryImpl(),
+                    profileRepository: ProfileRepositoryImpl(),
                   )..add(const SubscribeToProfile('demo-user-id')),
+                ),
+                BlocProvider(
+                  create: (context) => ChatBloc(AppConfig().chatRepository),
                 ),
               ],
               child: MaterialApp(
@@ -87,10 +89,10 @@ class QuoteBotApp extends StatelessWidget {
                 theme: ThemeData(
                   useMaterial3: true,
                   colorScheme: ColorScheme.fromSeed(
-                    seedColor: const Color(0xFF2979FF), // Electric Blue
+                    seedColor: const Color(0xFF2979FF),
                     brightness: Brightness.light,
                     primary: const Color(0xFF2979FF),
-                    secondary: const Color(0xFF00E676), // Neon Lime
+                    secondary: const Color(0xFF00E676),
                     background: Colors.white,
                     surface: Colors.grey[50],
                   ),
@@ -107,22 +109,23 @@ class QuoteBotApp extends StatelessWidget {
                   colorScheme: ColorScheme.fromSeed(
                     seedColor: const Color(0xFF2979FF),
                     brightness: Brightness.dark,
-                    // High contrast colors
-                    primary: const Color(0xFF64B5F6), // Lighter blue
-                    secondary: const Color(0xFF69F0AE), // Bright lime
-                    tertiary: const Color(0xFFFFB74D), // Orange
-                    background: const Color(0xFF0A0E27), // Deep navy
-                    surface: const Color(0xFF1A1F3A), // Card surface
-                    surfaceVariant: const Color(0xFF2A2F4A), // Elevated
-                    onPrimary: Colors.black,
+                    primary: const Color(0xFF2979FF),
+                    secondary: const Color(0xFF00E676),
+                    tertiary: const Color(0xFFF59E0B),
+                    background: const Color(0xFF0A0E27),
+                    surface: const Color(0xFF111633),
+                    surfaceVariant: const Color(0xFF1A1F3A),
+                    onPrimary: Colors.white,
                     onSecondary: Colors.black,
-                    onBackground: const Color(0xFFE8EAED), // Light text
-                    onSurface: const Color(0xFFE8EAED), // Light text
-                    onSurfaceVariant: const Color(0xFFB8BABD), // Gray text
+                    onBackground: const Color(0xFFE8EAED),
+                    onSurface: const Color(0xFFE8EAED),
+                    onSurfaceVariant: const Color(0xFF8B8FA3),
                     error: const Color(0xFFFF5252),
+                    outline: const Color(0xFF1E2447),
                   ),
                   scaffoldBackgroundColor: const Color(0xFF0A0E27),
-                  cardColor: const Color(0xFF1A1F3A),
+                  cardColor: const Color(0xFF111633),
+                  dividerColor: const Color(0xFF1E2447),
                   textTheme: GoogleFonts.interTextTheme(
                     ThemeData.dark().textTheme.copyWith(
                           bodyLarge: const TextStyle(color: Color(0xFFE8EAED)),
@@ -134,12 +137,33 @@ class QuoteBotApp extends StatelessWidget {
                         ),
                   ),
                   appBarTheme: const AppBarTheme(
-                    backgroundColor: Color(0xFF1A1F3A),
+                    backgroundColor: Color(0xFF0A0E27),
                     foregroundColor: Color(0xFFE8EAED),
                     elevation: 0,
                   ),
+                  navigationBarTheme: NavigationBarThemeData(
+                    backgroundColor: const Color(0xFF111633),
+                    indicatorColor: const Color(0xFF2979FF).withOpacity(0.15),
+                    iconTheme: MaterialStateProperty.resolveWith((states) {
+                      if (states.contains(MaterialState.selected)) {
+                        return const IconThemeData(color: Color(0xFF2979FF));
+                      }
+                      return const IconThemeData(color: Color(0xFF8B8FA3));
+                    }),
+                    labelTextStyle: MaterialStateProperty.resolveWith((states) {
+                      if (states.contains(MaterialState.selected)) {
+                        return const TextStyle(
+                            color: Color(0xFF2979FF),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600);
+                      }
+                      return const TextStyle(
+                          color: Color(0xFF8B8FA3), fontSize: 12);
+                    }),
+                  ),
                 ),
-                home: const DashboardPage(),
+                home:
+                    const MainNavigationPage(), // Auth desactivada temporalmente para dev
               ),
             );
           },
